@@ -7,10 +7,12 @@ A YouTube-style video listing interface built with React, TypeScript, and Tailwi
 - Fetches and displays YouTube videos in a responsive grid layout
 - Video cards with thumbnail, title, channel name, view count, and upload time
 - Video duration overlay on thumbnails
+- **Embedded video player** - Videos play directly in the app using YouTube iframe embed
+- Play button overlay on video cards on hover
 - Search functionality to filter videos by title or channel name
 - Loading state while fetching videos
 - Error handling for failed API requests
-- Click on video card opens the video on YouTube
+- Close video player with Escape key or clicking outside
 
 ## Tech Stack
 
@@ -59,11 +61,20 @@ Handles API requests and provides:
 
 **VideoCard**
 - Displays video thumbnail with duration overlay
+- Play button overlay on hover
 - Shows channel avatar with first letter
 - Video title (2-line clamp)
 - Channel name
 - View count and relative upload time
 - Hover effects on thumbnail and title
+- Click to open embedded video player
+
+**VideoPlayerModal**
+- Full-screen modal with YouTube iframe embed
+- Autoplay video when opened
+- Video title, channel info, and description
+- Close with Escape key or click outside
+- Prevents body scroll when open
 
 **Header**
 - YouTube logo and branding

@@ -7,17 +7,87 @@ import {
 } from "./services/api";
 import { useState, useEffect } from "react";
 
-function VideoCard({ video }: { video: VideoItem }) {
+function VideoPlayerModal({
+  video,
+  onClose,
+}: {
+  video: VideoItem;
+  onClose: () => void;
+}) {
+  const { items } = video;
+  const { snippet, statistics } = items;
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative aspect-video bg-black">
+          <iframe
+            src={`https://www.youtube.com/embed/${items.id}?autoplay=1`}
+            title={snippet.title}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+        <div className="p-4">
+          <h2 className="text-lg font-semibold text-stone-900 mb-2">
+            {snippet.title}
+          </h2>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-amber-400 flex items-center justify-center text-white font-semibold">
+              {snippet.channelTitle.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <p className="font-medium text-stone-800">{snippet.channelTitle}</p>
+              <p className="text-sm text-stone-500">
+                {formatViewCount(statistics.viewCount)} views • {timeAgo(snippet.publishedAt)}
+              </p>
+            </div>
+          </div>
+          <p className="text-stone-600 text-sm line-clamp-3">
+            {snippet.description}
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white/80 hover:text-white transition"
+      >
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+function VideoCard({
+  video,
+  onClick,
+}: {
+  video: VideoItem;
+  onClick: () => void;
+}) {
   const { items } = video;
   const { snippet, statistics, contentDetails } = items;
   const thumbnail = snippet.thumbnails.maxres || snippet.thumbnails.high || snippet.thumbnails.medium;
-  const videoUrl = `https://www.youtube.com/watch?v=${items.id}`;
 
   return (
-    <a
-      href={videoUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
+      onClick={onClick}
       className="group cursor-pointer"
     >
       <div className="relative aspect-video rounded-xl overflow-hidden bg-stone-200">
@@ -27,6 +97,14 @@ function VideoCard({ video }: { video: VideoItem }) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           loading="lazy"
         />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="w-14 h-14 rounded-full bg-black/70 flex items-center justify-center">
+            <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
         <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded font-medium">
           {formatDuration(contentDetails.duration)}
         </div>
@@ -49,7 +127,7 @@ function VideoCard({ video }: { video: VideoItem }) {
           </p>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -58,6 +136,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 
   useEffect(() => {
     fetchVideos()
@@ -72,6 +151,16 @@ export default function App() {
     const channel = video.items.snippet.channelTitle.toLowerCase();
     return title.includes(query) || channel.includes(query);
   });
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedVideo) {
+        setSelectedVideo(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedVideo]);
 
   if (loading) {
     return (
@@ -132,11 +221,22 @@ export default function App() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredVideos.map((video) => (
-              <VideoCard key={video.items.id} video={video} />
+              <VideoCard
+                key={video.items.id}
+                video={video}
+                onClick={() => setSelectedVideo(video)}
+              />
             ))}
           </div>
         )}
       </main>
+
+      {selectedVideo && (
+        <VideoPlayerModal
+          video={selectedVideo}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </div>
   );
 }
