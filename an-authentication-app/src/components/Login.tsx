@@ -1,11 +1,26 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "../context/AuthContext";
 
-export default function Login({ onSwitch }: { onSwitch: () => void }) {
+export default function Login({
+  onSwitch,
+  successMessage,
+  clearSuccess,
+}: {
+  onSwitch: () => void;
+  successMessage: string;
+  clearSuccess: () => void;
+}) {
   const { login, loading, error, clearError } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (successMessage) {
+      setSuccess(successMessage);
+    }
+  }, [successMessage]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -13,6 +28,7 @@ export default function Login({ onSwitch }: { onSwitch: () => void }) {
     try {
       await login({ username: username.toLowerCase(), password });
       setSuccess("Logged in successfully!");
+      clearSuccess();
     } catch {
       // error is set in context
     }
@@ -56,21 +72,42 @@ export default function Login({ onSwitch }: { onSwitch: () => void }) {
               type="text"
               required
               value={username}
-              onChange={(e) => { setUsername(e.target.value); clearError(); setSuccess(""); }}
+              onChange={(e) => { setUsername(e.target.value); clearError(); setSuccess(""); clearSuccess(); }}
               className="w-full px-4 py-2.5 rounded-lg border border-stone-300 bg-stone-50 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
               placeholder="Enter your username"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-stone-700 mb-1.5">Password</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => { setPassword(e.target.value); clearError(); setSuccess(""); }}
-              className="w-full px-4 py-2.5 rounded-lg border border-stone-300 bg-stone-50 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
-              placeholder="Enter your password"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); clearError(); setSuccess(""); clearSuccess(); }}
+                className="w-full px-4 py-2.5 pr-11 rounded-lg border border-stone-300 bg-stone-50 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute inset-y-0 right-2 flex items-center text-stone-500 hover:text-stone-700"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18M10.584 10.586a2 2 0 102.83 2.828" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.88 5.1A10.477 10.477 0 0112 5c5.523 0 10 4.477 10 10 0 1.296-.246 2.534-.693 3.67" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.44 6.44C4.36 7.86 2.84 9.84 2 12c1.6 4.11 5.64 7 10 7 1.6 0 3.12-.39 4.44-1.06" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
           <button
             type="submit"

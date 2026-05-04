@@ -12,6 +12,7 @@ import {
   logoutUser,
   getCurrentUser,
   type User,
+  type AuthUserResponse,
   type LoginPayload,
   type RegisterPayload,
 } from "../services/api";
@@ -33,9 +34,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  function extractUser(data: AuthUserResponse | User): User {
+    return (data as AuthUserResponse).user ?? (data as User);
+  }
+
   useEffect(() => {
     getCurrentUser()
-      .then((res) => setUser(res.data))
+      .then((res) => setUser(extractUser(res.data)))
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
   }, []);
@@ -44,9 +49,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setError(null);
     try {
-      await loginUser(payload);
-      const userRes = await getCurrentUser();
-      setUser(userRes.data);
+      const loginRes = await loginUser(payload);
+      setUser(extractUser(loginRes.data));
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Login failed";
       setError(msg);

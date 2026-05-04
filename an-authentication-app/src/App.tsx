@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 function AppContent() {
   const { user, loading } = useAuth();
   const [showRegister, setShowRegister] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState<string | null>(null);
 
   if (loading) {
     return (
@@ -33,9 +34,21 @@ function AppContent() {
         <p className="text-stone-500 mt-1">FreeAPI Authentication Flow</p>
       </div>
       {showRegister ? (
-        <Register onSwitch={() => setShowRegister(false)} />
+        <Register
+          onSwitch={(message) => {
+            setShowRegister(false);
+            setRegisterSuccess(message ?? null);
+          }}
+        />
       ) : (
-        <Login onSwitch={() => setShowRegister(true)} />
+        <Login
+          onSwitch={() => {
+            setShowRegister(true);
+            setRegisterSuccess(null);
+          }}
+          successMessage={registerSuccess ?? ""}
+          clearSuccess={() => setRegisterSuccess(null)}
+        />
       )}
     </div>
   );

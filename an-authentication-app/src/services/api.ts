@@ -21,6 +21,10 @@ export interface User {
   createdAt?: string;
 }
 
+export interface AuthUserResponse {
+  user: User;
+}
+
 export interface ApiResponse<T> {
   statusCode: number;
   data: T;
@@ -42,7 +46,7 @@ async function request<T>(
 ): Promise<ApiResponse<T>> {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
+    credentials: "omit",
     ...options,
   });
 
@@ -75,7 +79,7 @@ export async function registerUser(payload: RegisterPayload) {
 }
 
 export async function loginUser(payload: LoginPayload) {
-  return request<User>("/login", {
+  return request<AuthUserResponse>("/login", {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -86,5 +90,5 @@ export async function logoutUser() {
 }
 
 export async function getCurrentUser() {
-  return request<User>("/current-user");
+  return request<AuthUserResponse>("/current-user");
 }
