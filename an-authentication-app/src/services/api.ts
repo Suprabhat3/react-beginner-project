@@ -1,4 +1,4 @@
-const BASE_URL = "/api/v1/users";
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL ?? "https://api.freeapi.app"}/api/v1/users`;
 
 export interface RegisterPayload {
   email: string;
@@ -46,15 +46,20 @@ async function request<T>(
     ...options,
   });
 
-  const json = await res.json();
+  const contentType = res.headers.get("content-type") ?? "";
+  const isJson = contentType.includes("application/json");
+  const json = isJson ? await res.json() : null;
 
-  if (!res.ok || !json.success) {
-    let errorMsg = json.message || "Something went wrong";
-    if (json.errors?.length) {
+  if (!res.ok || !json?.success) {
+    let errorMsg = json?.message || "Something went wrong";
+    if (json?.errors?.length) {
       const fieldErrors = json.errors
         .map((e: Record<string, string>) => Object.values(e).join(", "))
         .join("; ");
       errorMsg = fieldErrors || errorMsg;
+    }
+    if (!isJson) {
+      errorMsg = `Unexpected response (${res.status}). Check API base URL.`;
     }
     throw new ApiError(errorMsg);
   }
