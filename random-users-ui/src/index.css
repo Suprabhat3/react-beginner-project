@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Work+Sans:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-ember-50: #faf6ef;
+  --color-ember-200: #efe4d4;
+  --color-ember-300: #e2d2bf;
+  --color-ember: #f6efe6;
+  --color-espresso: #3f2e23;
+  --color-russet: #6a4f3a;
+  --color-coral: #d39b73;
+
+  --shadow-soft: 0 18px 40px -24px rgba(63, 46, 35, 0.6);
+  --shadow-card: 0 18px 45px -30px rgba(63, 46, 35, 0.6);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Work Sans', system-ui, sans-serif;
+    color: #6a4f3a;
+    background: radial-gradient(circle at top left, #fff7eb 0%, #f8f0e5 45%, #efe4d4 100%);
+    text-rendering: optimizeLegibility;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  .font-display {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+  }
+}
