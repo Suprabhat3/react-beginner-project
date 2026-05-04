@@ -2,6 +2,10 @@
 
 A React + TypeScript + Vite app that fetches paginated quotes from a public quotes API and displays them in a clean, readable interface.
 
+## Live Demo
+
+https://quote-app-ui.vercel.app/
+
 ## What this app does
 
 - Fetches quotes from `https://api.freeapi.app/api/v1/public/quotes`

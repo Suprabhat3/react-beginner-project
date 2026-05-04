@@ -17,23 +17,18 @@ Instead of learning theory in isolation, this repo follows a **learn-by-building
 
 ---
 
-## 📂 Repository Structure
+## 📂 Projects (Folders + Live Demos)
 
 Each folder inside this repository represents **one independent project**, focused on a specific topic.
 
-```
-react-learning-projects/
-│
-├── 01-an-authentication-app/
-├── 02-youTube-videos-listing-ui/
-├── 03-product-listing-interface/
-├── 04-quotes-listing-application/
-├── 05-jokes-viewer-application/
-├── 06-Random Cat Viewer/
-├── 07-Meals Listing Interface/
-├── 08-Random Users UI/
-└── ...
-```
+- [Authentication App](an-authentication-app) — Live: https://01-react-authentication.vercel.app/
+- [YouTube Videos Listing UI](youTube-videos-listing-ui) — Live: https://youtube-videos-listing-ui.vercel.app/
+- [Product Listing Interface](product-listing-interface) — Live: https://product-listing-pages.vercel.app/
+- [Quotes Listing Application](quotes-listing-application) — Live: https://quote-app-ui.vercel.app/
+- [Jokes Viewer Application](jokes-viewer-application) — Live: https://jokes-viewe-application.vercel.app/
+- [Random Cat Viewer](random-cat-viewer) — Live: https://cat-info-ui.vercel.app/
+- [Meals Listing Interface](meals-listing-interface) — Live: https://meal-listing-six.vercel.app/
+- [Random Users UI](random-users-ui) — Live: https://random-user-ui-app.vercel.app/
 
 ---
 

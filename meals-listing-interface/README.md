@@ -2,6 +2,10 @@
 
 An earthy-themed meals browser built with React, TypeScript, and Vite. The app fetches paginated meals from the public meals API and presents each recipe in a clean card layout with a detailed modal for instructions and ingredients.
 
+## Live Demo
+
+https://meal-listing-six.vercel.app/
+
 ## Features
 
 - Paginated meals grid with animated entry

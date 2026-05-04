@@ -2,6 +2,10 @@
 
 A React + Tailwind interface that consumes the FreeAPI Random Users endpoint and displays profiles in a warm, earthy layout (no purple or blue accents).
 
+## Live Demo
+
+https://random-user-ui-app.vercel.app/
+
 ## Preview
 
 - Hero header with a profile snapshot summary.

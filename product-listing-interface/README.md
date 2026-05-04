@@ -2,6 +2,10 @@
 
 A modern, responsive product listing application built with React, TypeScript, and Vite. Fetches and displays products in an elegant card-based grid layout with real-time details including pricing, ratings, and inventory status.
 
+## Live Demo
+
+https://product-listing-pages.vercel.app/
+
 ## 📋 Features
 
 - **Dynamic Product Fetching** — Retrieves products from a free API with automatic pagination support

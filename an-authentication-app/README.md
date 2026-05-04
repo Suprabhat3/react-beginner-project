@@ -2,6 +2,10 @@
 
 A simple authentication-based application built with React, TypeScript, and Tailwind CSS using the FreeAPI Authentication Module.
 
+## Live Demo
+
+https://01-react-authentication.vercel.app/
+
 ## Features
 
 - User registration with username, email, password, and role
