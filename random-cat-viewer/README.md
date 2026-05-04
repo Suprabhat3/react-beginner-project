@@ -1,77 +1,45 @@
-# React + TypeScript + Vite
+# Random Cat Viewer
+
+A React + TypeScript app that fetches a random cat from a public API and displays the image alongside breed details.
 
 ## Live Demo
 
 https://cat-info-ui.vercel.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- Fetches a random cat from the public API on page load and on button click
+- Displays key breed information (origin, life span, weight, temperament)
+- Highlights boolean traits (indoor, lap cat, hypoallergenic) as quick badges
+- Graceful loading and error handling with status messaging
+- Responsive layout using Tailwind CSS with a light gradient hero
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS 4** - Styling
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Implementation Notes
 
-## Expanding the ESLint configuration
+- **API**: `https://api.freeapi.app/api/v1/public/cats/cat/random`
+- **Data model**: `CatData` and `CatResponse` TypeScript types in `src/App.tsx`
+- **State management**: `cat`, `loading`, and `error` managed with React `useState`
+- **Fetch flow**:
+  - `fetchCat()` sets loading state and resets errors
+  - Checks `response.ok` and validates `json.success` before updating UI
+  - Errors are captured and surfaced to the user; `cat` is cleared on failure
+- **Initial load**: `useEffect` calls `fetchCat()` once on mount
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Key Files
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- `src/App.tsx` - Fetch logic, state handling, and UI markup
+- `src/index.css` - Tailwind import and global styles
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Run Locally
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
