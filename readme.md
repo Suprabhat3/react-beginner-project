@@ -29,6 +29,9 @@ react-learning-projects/
 ├── 03-product-listing-interface/
 ├── 04-quotes-listing-application/
 ├── 05-jokes-viewer-application/
+├── 06-Random Cat Viewer/
+├── 07-Meals Listing Interface/
+├── 08-Random Users UI/
 └── ...
 ```
 
