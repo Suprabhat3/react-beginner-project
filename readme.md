@@ -29,6 +29,8 @@ Each folder inside this repository represents **one independent project**, focus
 - [Random Cat Viewer](random-cat-viewer) — Live: https://cat-info-ui.vercel.app/
 - [Meals Listing Interface](meals-listing-interface) — Live: https://meal-listing-six.vercel.app/
 - [Random Users UI](random-users-ui) — Live: https://random-user-ui-app.vercel.app/
+- [StopWatch And Timer App](stopwatch-and-timer-app) — Live: https://stopwatch-and-timer-app.vercel.app/
+- [Tic Tac Toe Game](tic-tac-toe-game) — Live: https://tic-tac-toe-game-phi.vercel.app/
 
 ---
 
