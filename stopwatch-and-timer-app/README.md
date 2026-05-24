@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# Stopwatch & Timer App (Kilomorphism UI)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Demo:** [https://suprabhat-stopwatch.vercel.app/](https://suprabhat-stopwatch.vercel.app/)
 
-Currently, two official plugins are available:
+A sleek, interactive Stopwatch and Timer application built with React. This project explores the **Kilomorphism** (Skeuomorphic/Neumorphic inspired) design trend, providing a highly tactile, physical-feeling interface with multiple distinct visual themes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⏱️ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Stopwatch**: Accurately track elapsed time with start, stop, and reset functionalities.
+- **Laps Tracking**: Record multiple lap times while the stopwatch is running, with a dedicated lap history view.
+- **Timer (Countdown)**: Set a specific duration and watch the time count down to zero. Includes start, pause, and reset controls.
+- **Kilomorphism UI**: A rich design aesthetic focusing on depth, realistic shadows, and tactile 3D-like buttons that react to user interaction.
+- **Multiple Themes**: Dynamic theme switching (via `ThemeSelector`) that allows users to change the visual mood of the application on the fly.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Technologies Used
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React** (via Vite)
+- **Tailwind CSS v4** for utility-first styling and theme management
+- **Lucide React** for crisp, scalable icons
+- **clsx** & **tailwind-merge** for dynamic class composition
+- **TypeScript** for robust type safety
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧠 Implementation Highlights
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Component Architecture
+The application is built using a modular component structure:
+- **Core Display**: Components responsible for rendering the time accurately (handling milliseconds, seconds, minutes, and hours).
+- **Controls**: Tactile button components styled with Kilomorphic shadows and active states to mimic real-world physical buttons.
+- **ThemeSelector**: A component allowing users to toggle between different color schemes and shadow profiles seamlessly.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### State & Time Management
+- React's `useState` and `useEffect` hooks are used extensively to manage the active state of the stopwatch and timer.
+- Precise time calculations are implemented using `requestAnimationFrame` or `setInterval` combined with `Date.now()` to avoid drift issues common in JavaScript timing functions.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Styling & Theming
+The project heavily utilizes custom CSS properties and Tailwind utilities to achieve the Kilomorphism look. The interface relies on carefully layered `box-shadow` values to create the illusion of elements extruding from or sinking into the background, paired with dynamic color palettes controlled by the theme state.
+
+---
+
+## 🚀 Getting Started Locally
+
+1. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
+
+2. **Run the development server:**
+   ```bash
+   pnpm run dev
+   ```
+
+3. **Open the app:**
+   Visit `http://localhost:5173` in your browser.
