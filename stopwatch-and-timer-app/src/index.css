@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Nunito', sans-serif;
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border);
+}
+
+@layer base {
+  :root {
+    --primary: #64748b; /* slate-500 */
+    --primary-hover: #475569; /* slate-600 */
+    --primary-light: #f1f5f9; /* slate-100 */
+    --background: #f8fafc; /* slate-50 */
+    --surface: #ffffff;
+    --text: #0f172a; /* slate-900 */
+    --text-muted: #64748b; /* slate-500 */
+    --border: #e2e8f0; /* slate-200 */
+  }
+
+  .dark {
+    --background: #0f172a; /* slate-900 */
+    --surface: #1e293b; /* slate-800 */
+    --text: #f8fafc; /* slate-50 */
+    --text-muted: #94a3b8; /* slate-400 */
+    --border: #334155; /* slate-700 */
+    --primary-light: #334155; /* slate-700 */
+  }
+
+  /* Theme: Slate (Default) */
+  .theme-slate {
+    --primary: #64748b;
+    --primary-hover: #475569;
+  }
+  .theme-slate.dark {
+    --primary: #94a3b8;
+    --primary-hover: #cbd5e1;
+  }
+
+  /* Theme: Rose */
+  .theme-rose {
+    --primary: #f43f5e;
+    --primary-hover: #e11d48;
+    --primary-light: #ffe4e6;
+  }
+  .theme-rose.dark {
+    --primary: #fb7185;
+    --primary-hover: #fda4af;
+    --primary-light: #881337;
+  }
+
+  /* Theme: Blue */
+  .theme-blue {
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-light: #dbeafe;
+  }
+  .theme-blue.dark {
+    --primary: #60a5fa;
+    --primary-hover: #93c5fd;
+    --primary-light: #1e3a8a;
+  }
+
+  /* Theme: Emerald */
+  .theme-emerald {
+    --primary: #10b981;
+    --primary-hover: #059669;
+    --primary-light: #d1fae5;
+  }
+  .theme-emerald.dark {
+    --primary: #34d399;
+    --primary-hover: #6ee7b7;
+    --primary-light: #064e3b;
+  }
+
+  /* Theme: Violet */
+  .theme-violet {
+    --primary: #8b5cf6;
+    --primary-hover: #7c3aed;
+    --primary-light: #ede9fe;
+  }
+  .theme-violet.dark {
+    --primary: #a78bfa;
+    --primary-hover: #c4b5fd;
+    --primary-light: #4c1d95;
+  }
+
+  /* Theme: Amber */
+  .theme-amber {
+    --primary: #f59e0b;
+    --primary-hover: #d97706;
+    --primary-light: #fef3c7;
+  }
+  .theme-amber.dark {
+    --primary: #fbbf24;
+    --primary-hover: #fcd34d;
+    --primary-light: #78350f;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Claymorphism utilities */
+.clay-panel {
+  background-color: var(--surface);
+  border-radius: 2rem;
+  box-shadow: 
+    12px 12px 24px rgba(0, 0, 0, 0.05),
+    -12px -12px 24px rgba(255, 255, 255, 0.8),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.9),
+    inset -4px -4px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .clay-panel {
+  box-shadow: 
+    12px 12px 24px rgba(0, 0, 0, 0.4),
+    -12px -12px 24px rgba(255, 255, 255, 0.02),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.05),
+    inset -4px -4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.clay-btn {
+  background-color: var(--surface);
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.06),
+    -6px -6px 12px rgba(255, 255, 255, 0.8),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.clay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.08),
+    -8px -8px 16px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.04);
+}
+
+.clay-btn:active, .clay-btn.active {
+  transform: translateY(2px);
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.06),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+}
+
+.dark .clay-btn {
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.4),
+    -6px -6px 12px rgba(255, 255, 255, 0.02),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.05),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark .clay-btn:hover {
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.5),
+    -8px -8px 16px rgba(255, 255, 255, 0.03),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.05),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dark .clay-btn:active, .dark .clay-btn.active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.4),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.02);
+}
+
+.clay-btn-primary {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.1),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.3),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.clay-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.2),
+    -3px -3px 8px rgba(255, 255, 255, 0.15),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.4),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.clay-btn-primary:active, .clay-btn-primary.active {
+  transform: translateY(2px);
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.3),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Fullscreen Overrides */
+:fullscreen {
+  background-color: var(--background) !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 2rem !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+::backdrop {
+  background-color: var(--background);
+}
